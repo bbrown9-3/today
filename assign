@@ -1,0 +1,78 @@
+
+#include <iostream>
+using namespace std;
+
+// Function to check whether a date is valid
+bool isValidDate(int day, int month, int year)
+{
+    if (day < 1 || day > 31)
+        return false;
+
+    if (month < 1 || month > 12)
+        return false;
+
+    if (year < 1900 || year > 2025)
+        return false;
+
+    return true;
+}
+
+// Function to calculate the user's age
+int calculateAge(int birthMonth, int birthDay, int birthYear,
+                 int currentMonth, int currentDay, int currentYear)
+{
+    int age = currentYear - birthYear;
+
+    if (currentMonth < birthMonth ||
+        (currentMonth == birthMonth && currentDay < birthDay))
+    {
+        age--;
+    }
+
+    return age;
+}
+
+int main()
+{
+    while (true)
+    {
+        int birthMonth, birthDay, birthYear;
+        int currentMonth, currentDay, currentYear;
+
+        // Get and validate the birth date
+        do
+        {
+            cout << "\nEnter your birth month, day, and year: ";
+            cin >> birthMonth >> birthDay >> birthYear;
+
+            if (!isValidDate(birthDay, birthMonth, birthYear))
+            {
+                cout << "Invalid birth date. Please try again.\n";
+            }
+
+        } while (!isValidDate(birthDay, birthMonth, birthYear));
+
+        // Get and validate the current date
+        do
+        {
+            cout << "Enter the current month, day, and year: ";
+            cin >> currentMonth >> currentDay >> currentYear;
+
+            if (!isValidDate(currentDay, currentMonth, currentYear))
+            {
+                cout << "Invalid current date. Please try again.\n";
+            }
+
+        } while (!isValidDate(currentDay, currentMonth, currentYear));
+
+        // Calculate and display the age
+        int age = calculateAge(
+            birthMonth, birthDay, birthYear,
+            currentMonth, currentDay, currentYear
+        );
+
+        cout << "Your age is: " << age << endl;
+    }
+
+    return 0;
+}
